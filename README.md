@@ -42,13 +42,18 @@ limitations under the License.
 ## Usage
 
 ```javascript
+import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@deno/mod.js';
+```
+The previous example will load the latest bundled code from the deno branch. Alternatively, you may load a specific version by loading the file from one of the [tagged bundles](https://github.com/stdlib-js/random-strided-exponential/tags). For example,
+
+```javascript
 import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@v0.1.0-deno/mod.js';
 ```
 
 You can also import the following named exports from the package:
 
 ```javascript
-import { ndarray } from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@v0.1.0-deno/mod.js';
+import { ndarray } from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@deno/mod.js';
 ```
 
 #### exponential( N, lambda, sl, out, so\[, options] )
@@ -189,7 +194,7 @@ The function accepts the same `options` as documented above for `exponential()`.
 import zeros from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-zeros@deno/mod.js';
 import zeroTo from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-base-zero-to@deno/mod.js';
 import logEach from 'https://cdn.jsdelivr.net/gh/stdlib-js/console-log-each@deno/mod.js';
-import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@v0.1.0-deno/mod.js';
+import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@deno/mod.js';
 
 // Specify a PRNG seed:
 var opts = {
