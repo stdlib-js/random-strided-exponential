@@ -33,30 +33,40 @@ limitations under the License.
 
 [![NPM version][npm-image]][npm-url] [![Build Status][test-image]][test-url] [![Coverage Status][coverage-image]][coverage-url] <!-- [![dependencies][dependencies-image]][dependencies-url] -->
 
-> Fill a strided array with pseudorandom numbers drawn from a [exponential][@stdlib/random/base/exponential] distribution.
+> Fill a strided array with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution.
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/random-strided-exponential
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm` branch][esm-url].
+-   If you are using Deno, visit the [`deno` branch][deno-url].
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd` branch][umd-url].
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
 ```javascript
-import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@esm/index.mjs';
-```
-
-You can also import the following named exports from the package:
-
-```javascript
-import { ndarray } from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@esm/index.mjs';
+var exponential = require( '@stdlib/random-strided-exponential' );
 ```
 
 #### exponential( N, lambda, sl, out, so\[, options] )
 
-Fills a strided array with pseudorandom numbers drawn from a [exponential][@stdlib/random/base/exponential] distribution.
+Fills a strided array with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution.
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@esm/index.mjs';
+var Float64Array = require( '@stdlib/array-float64' );
 
 // Create an array:
 var out = new Float64Array( 10 );
@@ -86,7 +96,7 @@ Note that indexing is relative to the first index. To introduce an offset, use [
 <!-- eslint-disable stdlib/capitalized-comments -->
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@esm/index.mjs';
+var Float64Array = require( '@stdlib/array-float64' );
 
 // Initial array:
 var lambda0 = new Float64Array( [ 5.0, 5.0, 5.0, 5.0, 5.0, 5.0 ] );
@@ -111,8 +121,8 @@ The function accepts the following `options`:
 To use a custom PRNG as the underlying source of uniformly distributed pseudorandom numbers, set the `prng` option.
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@esm/index.mjs';
-import minstd from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-base-minstd@esm/index.mjs';
+var Float64Array = require( '@stdlib/array-float64' );
+var minstd = require( '@stdlib/random-base-minstd' );
 
 var opts = {
     'prng': minstd.normalized
@@ -125,7 +135,7 @@ exponential( out.length, [ 2.0 ], 0, out, 1, opts );
 To seed the underlying pseudorandom number generator, set the `seed` option.
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@esm/index.mjs';
+var Float64Array = require( '@stdlib/array-float64' );
 
 var opts = {
     'seed': 12345
@@ -137,10 +147,10 @@ exponential( out.length, [ 2.0 ], 0, out, 1, opts );
 
 #### exponential.ndarray( N, lambda, sl, ol, out, so, oo\[, options] )
 
-Fills a strided array with pseudorandom numbers drawn from a [exponential][@stdlib/random/base/exponential] distribution using alternative indexing semantics.
+Fills a strided array with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution using alternative indexing semantics.
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@esm/index.mjs';
+var Float64Array = require( '@stdlib/array-float64' );
 
 // Create an array:
 var out = new Float64Array( 10 );
@@ -185,16 +195,11 @@ The function accepts the same `options` as documented above for `exponential()`.
 
 <!-- eslint no-undef: "error" -->
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<body>
-<script type="module">
-
-import zeros from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-zeros@esm/index.mjs';
-import zeroTo from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-base-zero-to@esm/index.mjs';
-import logEach from 'https://cdn.jsdelivr.net/gh/stdlib-js/console-log-each@esm/index.mjs';
-import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@esm/index.mjs';
+```javascript
+var zeros = require( '@stdlib/array-zeros' );
+var zeroTo = require( '@stdlib/array-base-zero-to' );
+var logEach = require( '@stdlib/console-log-each' );
+var exponential = require( '@stdlib/random-strided-exponential' );
 
 // Specify a PRNG seed:
 var opts = {
@@ -218,10 +223,6 @@ exponential( x2.length, [ 2.0 ], 0, x2, 1, opts );
 
 // Print the array contents:
 logEach( 'x1[%d] = %.2f; x2[%d] = %.2f', idx, x1, idx, x2 );
-
-</script>
-</body>
-</html>
 ```
 
 </section>
@@ -252,7 +253,7 @@ logEach( 'x1[%d] = %.2f; x2[%d] = %.2f', idx, x1, idx, x2 );
 
 ## Notice
 
-This package is part of [stdlib][stdlib], a standard library with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
+This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
 
 For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
 
@@ -314,13 +315,13 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 
 [mdn-typed-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray
 
-[@stdlib/random/base/exponential]: https://github.com/stdlib-js/random-base-exponential/tree/esm
+[@stdlib/random/base/exponential]: https://github.com/stdlib-js/random-base-exponential
 
-[@stdlib/array/uint32]: https://github.com/stdlib-js/array-uint32/tree/esm
+[@stdlib/array/uint32]: https://github.com/stdlib-js/array-uint32
 
 <!-- <related-links> -->
 
-[@stdlib/random/array/exponential]: https://github.com/stdlib-js/random-array-exponential/tree/esm
+[@stdlib/random/array/exponential]: https://github.com/stdlib-js/random-array-exponential
 
 <!-- </related-links> -->
 
