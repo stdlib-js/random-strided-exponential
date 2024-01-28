@@ -35,28 +35,40 @@ limitations under the License.
 
 > Fill a strided array with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution.
 
+<section class="installation">
 
+## Installation
+
+```bash
+npm install @stdlib/random-strided-exponential
+```
+
+Alternatively,
+
+-   To load the package in a website via a `script` tag without installation and bundlers, use the [ES Module][es-module] available on the [`esm`][esm-url] branch (see [README][esm-readme]).
+-   If you are using Deno, visit the [`deno`][deno-url] branch (see [README][deno-readme] for usage intructions).
+-   For use in Observable, or in browser/node environments, use the [Universal Module Definition (UMD)][umd] build available on the [`umd`][umd-url] branch (see [README][umd-readme]).
+
+The [branches.md][branches-url] file summarizes the available branches and displays a diagram illustrating their relationships.
+
+To view installation and usage instructions specific to each branch build, be sure to explicitly navigate to the respective README files on each branch, as linked to above.
+
+</section>
 
 <section class="usage">
 
 ## Usage
 
 ```javascript
-import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@deno/mod.js';
+var exponential = require( '@stdlib/random-strided-exponential' );
 ```
 
-You can also import the following named exports from the package:
-
-```javascript
-import { ndarray } from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@deno/mod.js';
-```
-
-#### exponential( N, lambda, sl, out, so\[, options] )
+#### exponential( N, lambda, sl, out, so )
 
 Fills a strided array with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution.
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
+var Float64Array = require( '@stdlib/array-float64' );
 
 // Create an array:
 var out = new Float64Array( 10 );
@@ -86,7 +98,7 @@ Note that indexing is relative to the first index. To introduce an offset, use [
 <!-- eslint-disable stdlib/capitalized-comments -->
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
+var Float64Array = require( '@stdlib/array-float64' );
 
 // Initial array:
 var lambda0 = new Float64Array( [ 5.0, 5.0, 5.0, 5.0, 5.0, 5.0 ] );
@@ -101,46 +113,12 @@ var out = new Float64Array( 3 );
 exponential( out.length, lambda1, -1, out, 1 );
 ```
 
-The function accepts the following `options`:
-
--   **prng**: pseudorandom number generator for generating uniformly distributed pseudorandom numbers on the interval `[0,1)`. If provided, the function **ignores** both the `state` and `seed` options. In order to seed the underlying pseudorandom number generator, one must seed the provided `prng` (assuming the provided `prng` is seedable).
--   **seed**: pseudorandom number generator seed.
--   **state**: a [`Uint32Array`][@stdlib/array/uint32] containing pseudorandom number generator state. If provided, the function ignores the `seed` option.
--   **copy**: `boolean` indicating whether to copy a provided pseudorandom number generator state. Setting this option to `false` allows sharing state between two or more pseudorandom number generators. Setting this option to `true` ensures that an underlying generator has exclusive control over its internal state. Default: `true`.
-
-To use a custom PRNG as the underlying source of uniformly distributed pseudorandom numbers, set the `prng` option.
-
-```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
-import minstd from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-base-minstd@deno/mod.js';
-
-var opts = {
-    'prng': minstd.normalized
-};
-
-var out = new Float64Array( 10 );
-exponential( out.length, [ 2.0 ], 0, out, 1, opts );
-```
-
-To seed the underlying pseudorandom number generator, set the `seed` option.
-
-```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
-
-var opts = {
-    'seed': 12345
-};
-
-var out = new Float64Array( 10 );
-exponential( out.length, [ 2.0 ], 0, out, 1, opts );
-```
-
-#### exponential.ndarray( N, lambda, sl, ol, out, so, oo\[, options] )
+#### exponential.ndarray( N, lambda, sl, ol, out, so, oo )
 
 Fills a strided array with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution using alternative indexing semantics.
 
 ```javascript
-import Float64Array from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-float64@deno/mod.js';
+var Float64Array = require( '@stdlib/array-float64' );
 
 // Create an array:
 var out = new Float64Array( 10 );
@@ -162,7 +140,184 @@ var out = [ 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 ];
 exponential.ndarray( 3, [ 2.0 ], 0, 0, out, 2, 1 );
 ```
 
-The function accepts the same `options` as documented above for `exponential()`.
+#### exponential.factory( \[options] )
+
+Returns a function for filling strided arrays with pseudorandom numbers drawn from an [exponential][@stdlib/random/base/exponential] distribution.
+
+```javascript
+var Float64Array = require( '@stdlib/array-float64' );
+
+var random = exponential.factory();
+// returns <Function>
+
+// Create an array:
+var out = new Float64Array( 10 );
+
+// Fill the array with pseudorandom numbers:
+random( out.length, [ 2.0 ], 0, out, 1 );
+```
+
+The function accepts the following `options`:
+
+-   **prng**: pseudorandom number generator for generating uniformly distributed pseudorandom numbers on the interval `[0,1)`. If provided, the function **ignores** both the `state` and `seed` options. In order to seed the underlying pseudorandom number generator, one must seed the provided `prng` (assuming the provided `prng` is seedable).
+-   **seed**: pseudorandom number generator seed.
+-   **state**: a [`Uint32Array`][@stdlib/array/uint32] containing pseudorandom number generator state. If provided, the function ignores the `seed` option.
+-   **copy**: `boolean` indicating whether to copy a provided pseudorandom number generator state. Setting this option to `false` allows sharing state between two or more pseudorandom number generators. Setting this option to `true` ensures that an underlying generator has exclusive control over its internal state. Default: `true`.
+
+To use a custom PRNG as the underlying source of uniformly distributed pseudorandom numbers, set the `prng` option.
+
+```javascript
+var Float64Array = require( '@stdlib/array-float64' );
+var minstd = require( '@stdlib/random-base-minstd' );
+
+var opts = {
+    'prng': minstd.normalized
+};
+var random = exponential.factory( opts );
+
+var out = new Float64Array( 10 );
+random( out.length, [ 2.0 ], 0, out, 1 );
+```
+
+To seed the underlying pseudorandom number generator, set the `seed` option.
+
+```javascript
+var Float64Array = require( '@stdlib/array-float64' );
+
+var opts = {
+    'seed': 12345
+};
+var random = exponential.factory( opts );
+
+var out = new Float64Array( 10 );
+random( out.length, [ 2.0 ], 0, out, 1 );
+```
+
+* * *
+
+#### random.PRNG
+
+The underlying pseudorandom number generator.
+
+```javascript
+var prng = exponential.PRNG;
+// returns <Function>
+```
+
+#### exponential.seed
+
+The value used to seed the underlying pseudorandom number generator.
+
+```javascript
+var seed = exponential.seed;
+// returns <Uint32Array>
+```
+
+If the `factory` method is provided a PRNG for uniformly distributed numbers, the associated property value on the returned function is `null`.
+
+```javascript
+var minstd = require( '@stdlib/random-base-minstd-shuffle' ).normalized;
+
+var random = exponential.factory({
+    'prng': minstd
+});
+// returns <Function>
+
+var seed = random.seed;
+// returns null
+```
+
+#### exponential.seedLength
+
+Length of underlying pseudorandom number generator seed.
+
+```javascript
+var len = exponential.seedLength;
+// returns <number>
+```
+
+If the `factory` method is provided a PRNG for uniformly distributed numbers, the associated property value on the returned function is `null`.
+
+```javascript
+var minstd = require( '@stdlib/random-base-minstd-shuffle' ).normalized;
+
+var random = exponential.factory({
+    'prng': minstd
+});
+// returns <Function>
+
+var len = random.seedLength;
+// returns null
+```
+
+#### exponential.state
+
+Writable property for getting and setting the underlying pseudorandom number generator state.
+
+```javascript
+var state = exponential.state;
+// returns <Uint32Array>
+```
+
+If the `factory` method is provided a PRNG for uniformly distributed numbers, the associated property value on the returned function is `null`.
+
+```javascript
+var minstd = require( '@stdlib/random-base-minstd-shuffle' ).normalized;
+
+var random = exponential.factory({
+    'prng': minstd
+});
+// returns <Function>
+
+var state = random.state;
+// returns null
+```
+
+#### exponential.stateLength
+
+Length of underlying pseudorandom number generator state.
+
+```javascript
+var len = exponential.stateLength;
+// returns <number>
+```
+
+If the `factory` method is provided a PRNG for uniformly distributed numbers, the associated property value on the returned function is `null`.
+
+```javascript
+var minstd = require( '@stdlib/random-base-minstd-shuffle' ).normalized;
+
+var random = exponential.factory({
+    'prng': minstd
+});
+// returns <Function>
+
+var len = random.stateLength;
+// returns null
+```
+
+#### exponential.byteLength
+
+Size (in bytes) of underlying pseudorandom number generator state.
+
+```javascript
+var sz = exponential.byteLength;
+// returns <number>
+```
+
+If the `factory` method is provided a PRNG for uniformly distributed numbers, the associated property value on the returned function is `null`.
+
+```javascript
+var minstd = require( '@stdlib/random-base-minstd-shuffle' ).normalized;
+
+var random = exponential.factory({
+    'prng': minstd
+});
+// returns <Function>
+
+var sz = random.byteLength;
+// returns null
+```
 
 </section>
 
@@ -170,10 +325,12 @@ The function accepts the same `options` as documented above for `exponential()`.
 
 <section class="notes">
 
+* * *
+
 ## Notes
 
--   If `N <= 0`, both functions leave the output array unchanged.
--   Both functions support array-like objects having getter and setter accessors for array element access.
+-   If `N <= 0`, both `exponential` and `exponential.ndarray` leave the output array unchanged.
+-   Both `exponential` and `exponential.ndarray` support array-like objects having getter and setter accessors for array element access.
 
 </section>
 
@@ -181,35 +338,44 @@ The function accepts the same `options` as documented above for `exponential()`.
 
 <section class="examples">
 
+* * *
+
 ## Examples
 
 <!-- eslint no-undef: "error" -->
 
 ```javascript
-import zeros from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-zeros@deno/mod.js';
-import zeroTo from 'https://cdn.jsdelivr.net/gh/stdlib-js/array-base-zero-to@deno/mod.js';
-import logEach from 'https://cdn.jsdelivr.net/gh/stdlib-js/console-log-each@deno/mod.js';
-import exponential from 'https://cdn.jsdelivr.net/gh/stdlib-js/random-strided-exponential@deno/mod.js';
+var zeros = require( '@stdlib/array-zeros' );
+var zeroTo = require( '@stdlib/array-zero-to' );
+var logEach = require( '@stdlib/console-log-each' );
+var exponential = require( '@stdlib/random-strided-exponential' );
 
 // Specify a PRNG seed:
 var opts = {
     'seed': 1234
 };
 
+// Create a seeded PRNG:
+var rand1 = exponential.factory( opts );
+
 // Create an array:
 var x1 = zeros( 10, 'float64' );
 
-// Create a list of indices:
-var idx = zeroTo( x1.length );
-
 // Fill the array with pseudorandom numbers:
-exponential( x1.length, [ 2.0 ], 0, x1, 1, opts );
+rand1( x1.length, [ 2.0 ], 0, x1, 1 );
+
+// Create another function for filling strided arrays:
+var rand2 = exponential.factory( opts );
+// returns <Function>
 
 // Create a second array:
 var x2 = zeros( 10, 'generic' );
 
 // Fill the array with the same pseudorandom numbers:
-exponential( x2.length, [ 2.0 ], 0, x2, 1, opts );
+rand2( x2.length, [ 2.0 ], 0, x2, 1 );
+
+// Create a list of indices:
+var idx = zeroTo( x1.length, 'generic' );
 
 // Print the array contents:
 logEach( 'x1[%d] = %.2f; x2[%d] = %.2f', idx, x1, idx, x2 );
@@ -243,7 +409,7 @@ logEach( 'x1[%d] = %.2f; x2[%d] = %.2f', idx, x1, idx, x2 );
 
 ## Notice
 
-This package is part of [stdlib][stdlib], a standard library with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
+This package is part of [stdlib][stdlib], a standard library for JavaScript and Node.js, with an emphasis on numerical and scientific computing. The library provides a collection of robust, high performance libraries for mathematics, statistics, streams, utilities, and more.
 
 For more information on the project, filing bug reports and feature requests, and guidance on how to develop [stdlib][stdlib], see the main project [repository][stdlib].
 
@@ -297,21 +463,24 @@ Copyright &copy; 2016-2024. The Stdlib [Authors][stdlib-authors].
 [es-module]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
 
 [deno-url]: https://github.com/stdlib-js/random-strided-exponential/tree/deno
+[deno-readme]: https://github.com/stdlib-js/random-strided-exponential/blob/deno/README.md
 [umd-url]: https://github.com/stdlib-js/random-strided-exponential/tree/umd
+[umd-readme]: https://github.com/stdlib-js/random-strided-exponential/blob/umd/README.md
 [esm-url]: https://github.com/stdlib-js/random-strided-exponential/tree/esm
+[esm-readme]: https://github.com/stdlib-js/random-strided-exponential/blob/esm/README.md
 [branches-url]: https://github.com/stdlib-js/random-strided-exponential/blob/main/branches.md
 
 [stdlib-license]: https://raw.githubusercontent.com/stdlib-js/random-strided-exponential/main/LICENSE
 
 [mdn-typed-array]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray
 
-[@stdlib/random/base/exponential]: https://github.com/stdlib-js/random-base-exponential/tree/deno
+[@stdlib/random/base/exponential]: https://github.com/stdlib-js/random-base-exponential
 
-[@stdlib/array/uint32]: https://github.com/stdlib-js/array-uint32/tree/deno
+[@stdlib/array/uint32]: https://github.com/stdlib-js/array-uint32
 
 <!-- <related-links> -->
 
-[@stdlib/random/array/exponential]: https://github.com/stdlib-js/random-array-exponential/tree/deno
+[@stdlib/random/array/exponential]: https://github.com/stdlib-js/random-array-exponential
 
 <!-- </related-links> -->
 
