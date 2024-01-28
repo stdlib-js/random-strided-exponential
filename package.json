@@ -87,6 +87,7 @@
     "random",
     "rand",
     "exponential",
+    "exp",
     "continuous",
     "generator",
     "seed",
